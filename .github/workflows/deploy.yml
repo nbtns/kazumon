@@ -31,7 +31,6 @@ jobs:
         uses: returntocorp/semgrep-action@v1
         with:
           config: auto
-          generateSarif: true
 
   # === セキュリティチェック2: Gitleaks（シークレット漏洩検知） ===
   gitleaks:
