@@ -162,7 +162,7 @@ export function GameScreen({ difficulty, onGameEnd, onExit }: GameScreenProps) {
       </header>
 
       {/* メインエリア：ブロック表示 */}
-      <main className="flex flex-col items-center gap-0.5 2xl:gap-1 flex-1 justify-start">
+      <main className="flex flex-col items-center gap-0.5 2xl:gap-1 justify-start">
         {/* 問題文 */}
         <p className="text-lg 2xl:text-2xl font-bold text-kazumon-dark text-center">
           このブロックはいくつ？
