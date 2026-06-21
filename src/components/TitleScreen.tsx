@@ -9,7 +9,7 @@ interface TitleScreenProps {
 /**
  * タイトル画面（難易度選択）
  * 各難易度のベストタイムも表示する
- * スマホでもスクロールせずに全体が表示されるようコンパクト化
+ * 上寄せで表示し、PCは大きく・スマホはコンパクトに
  */
 export function TitleScreen({ onStart }: TitleScreenProps) {
   const difficulties: Difficulty[] = ['easy', 'normal', 'hard']
@@ -40,7 +40,7 @@ export function TitleScreen({ onStart }: TitleScreenProps) {
   const demoPrimes: PrimeFactor[] = [2, 3, 5, 7]
 
   return (
-    <div className="h-[100dvh] flex flex-col items-center justify-center p-3 gap-2 overflow-hidden">
+    <div className="h-[100dvh] flex flex-col items-center justify-start p-3 sm:p-6 pt-4 sm:pt-8 gap-2 sm:gap-4 overflow-hidden">
       {/* タイトルロゴ */}
       <div className="text-center animate-pop-in">
         <h1 className="text-4xl sm:text-6xl font-extrabold text-kazumon-primary drop-shadow-lg">
@@ -52,11 +52,11 @@ export function TitleScreen({ onStart }: TitleScreenProps) {
       </div>
 
       {/* デモブロック（タイトル画面の飾り） */}
-      <div className="flex gap-2 animate-float">
+      <div className="flex gap-2 sm:gap-3 animate-float">
         {demoPrimes.map((prime) => (
           <div
             key={prime}
-            className="w-8 h-8 rounded-lg shadow-md border-2 border-white/50"
+            className="w-8 h-8 sm:w-12 sm:h-12 rounded-lg shadow-md border-2 border-white/50"
             style={{
               backgroundColor: PRIME_COLORS[prime],
             }}
@@ -65,27 +65,27 @@ export function TitleScreen({ onStart }: TitleScreenProps) {
       </div>
 
       {/* カラーガイド（ブロックの色と素数の対応） */}
-      <div className="w-full max-w-md bg-white/70 rounded-2xl p-2 shadow-md border-2 border-kazumon-light/30">
-        <p className="text-center text-sm font-bold text-kazumon-dark mb-1">
+      <div className="w-full max-w-md bg-white/70 rounded-2xl p-2 sm:p-4 shadow-md border-2 border-kazumon-light/30">
+        <p className="text-center text-sm sm:text-lg font-bold text-kazumon-dark mb-1 sm:mb-2">
           🎨 ブロックのいろガイド
         </p>
-        <div className="grid grid-cols-2 gap-1.5">
+        <div className="grid grid-cols-2 gap-1.5 sm:gap-3">
           {colorGuide.map((item) => (
             <div
               key={item.prime}
-              className="flex items-center gap-2 bg-white rounded-lg p-1 shadow-sm"
+              className="flex items-center gap-2 bg-white rounded-lg p-1 sm:p-2 shadow-sm"
             >
               {/* 色見本 */}
               <div
-                className="w-5 h-5 rounded-md shadow-sm border-2 border-white/50 flex-shrink-0"
+                className="w-5 h-5 sm:w-8 sm:h-8 rounded-md shadow-sm border-2 border-white/50 flex-shrink-0"
                 style={{ backgroundColor: PRIME_COLORS[item.prime] }}
               />
               {/* 数字・色名・説明 */}
               <div className="flex flex-col leading-tight">
-                <span className="text-xs font-bold text-kazumon-dark">
+                <span className="text-xs sm:text-base font-bold text-kazumon-dark">
                   {item.prime}（{item.colorName}）
                 </span>
-                <span className="text-[10px] text-kazumon-dark/70">
+                <span className="text-[10px] sm:text-sm text-kazumon-dark/70">
                   {item.description}
                 </span>
               </div>
@@ -95,8 +95,8 @@ export function TitleScreen({ onStart }: TitleScreenProps) {
       </div>
 
       {/* 難易度選択 */}
-      <div className="flex flex-col gap-2 w-full max-w-md">
-        <p className="text-center text-lg font-bold text-kazumon-dark">
+      <div className="flex flex-col gap-2 sm:gap-3 w-full max-w-md">
+        <p className="text-center text-lg sm:text-2xl font-bold text-kazumon-dark">
           レベルをえらんでね！
         </p>
         {difficulties.map((diff) => {
@@ -112,18 +112,18 @@ export function TitleScreen({ onStart }: TitleScreenProps) {
               className={`
                 btn-base
                 ${difficultyColors[diff]}
-                py-2 px-4
-                text-lg
+                py-2 px-4 sm:py-4 sm:px-6
+                text-lg sm:text-2xl
                 border-4
                 shadow-xl
                 flex flex-col items-center gap-0.5
               `}
             >
-              <span className="text-xl">{config.label}</span>
-              <span className="text-xs opacity-90">{config.description}</span>
+              <span className="text-xl sm:text-3xl">{config.label}</span>
+              <span className="text-xs sm:text-base opacity-90">{config.description}</span>
               {/* ベストタイム（記録がある場合のみ表示） */}
               {hasRecord && best && (
-                <span className="text-xs bg-white/30 rounded-full px-2 py-0.5 mt-0.5 tabular-nums">
+                <span className="text-xs sm:text-sm bg-white/30 rounded-full px-2 py-0.5 mt-0.5 tabular-nums">
                   🏆 ベスト: {best.minutes > 0 ? `${best.minutes}ふん ` : ''}{best.secondsDecimal}びょう
                   {record.playCount > 1 && `（${record.playCount}かいプレイ）`}
                 </span>

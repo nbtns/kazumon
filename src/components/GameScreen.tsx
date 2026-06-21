@@ -116,7 +116,7 @@ export function GameScreen({ difficulty, onGameEnd, onExit }: GameScreenProps) {
   const timeDisplay = formatTime(elapsedTime)
 
   return (
-    <div className="h-[100dvh] flex flex-col p-2 sm:p-4 gap-2 sm:gap-4 overflow-hidden justify-start">
+    <div className="h-[100dvh] flex flex-col p-2 sm:p-4 gap-1 sm:gap-2 overflow-hidden justify-start">
       {/* ヘッダー：進捗・スコア・終了ボタン */}
       <header className="flex items-center justify-between gap-2 sm:gap-3 flex-shrink-0">
         {/* 終了ボタン */}
@@ -162,7 +162,7 @@ export function GameScreen({ difficulty, onGameEnd, onExit }: GameScreenProps) {
       </header>
 
       {/* メインエリア：ブロック表示 */}
-      <main className="flex flex-col items-center gap-1 sm:gap-3 flex-1 justify-center">
+      <main className="flex flex-col items-center gap-0.5 sm:gap-1 flex-1 justify-start">
         {/* 問題文 */}
         <p className="text-lg sm:text-2xl font-bold text-kazumon-dark text-center">
           このブロックはいくつ？
@@ -172,7 +172,7 @@ export function GameScreen({ difficulty, onGameEnd, onExit }: GameScreenProps) {
         <BlockGrid problem={currentProblem} animate={selectedAnswer === null} />
 
         {/* フィードバック（高さを固定してレイアウト崩れを防ぐ） */}
-        <div style={{ minHeight: '60px' }} className="flex items-center justify-center">
+        <div style={{ minHeight: '40px' }} className="flex items-center justify-center">
           {answerResult && (
             <Feedback result={answerResult} problem={currentProblem} />
           )}
