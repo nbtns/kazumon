@@ -1,0 +1,34 @@
+# 依存パッケージ
+node_modules/
+
+# ビルド出力
+dist/
+build/
+
+# 環境変数ファイル
+.env
+.env.local
+.env.*.local
+
+# エディタ設定
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS固有ファイル
+.DS_Store
+Thumbs.db
+
+# ログファイル
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 一時ファイル
+*.tmp
+fix_svg.py
+
+# 無効化されたGitディレクトリ
+.git_disabled/

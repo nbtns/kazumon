@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply font-kid bg-kazumon-bg text-kazumon-dark;
+    margin: 0;
+    min-height: 100vh;
+    /* 子供がタップしやすいようにタッチ操作を最適化 */
+    touch-action: manipulation;
+    overscroll-behavior: none;
+  }
+}
+
+@layer components {
+  /* 大きく押しやすいボタンの基本スタイル */
+  .btn-base {
+    @apply rounded-2xl font-bold transition-all duration-150 select-none;
+    @apply active:scale-95 focus:outline-none focus:ring-4;
+  }
+}
