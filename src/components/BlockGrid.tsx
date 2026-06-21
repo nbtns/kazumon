@@ -8,8 +8,8 @@ interface BlockGridProps {
 }
 
 // ブロック表示枠の最大サイズ（パディング込み）
-// PC（画面幅768px以上）は大きく、スマホは小さくしてスクロール不要にする
-const MAX_FRAME_SIZE_PC = 400
+// PC（画面幅1536px以上）は大きく、スマホは小さくしてスクロール不要にする
+const MAX_FRAME_SIZE_PC = 320
 const MAX_FRAME_SIZE_MOBILE = 280
 // ブロック表示枠の最小サイズ（これ以下だと小さすぎて見えない）
 const MIN_FRAME_SIZE = 160
@@ -18,7 +18,7 @@ const PADDING = 24
 // ブロック間のギャップ
 const GAP = 8
 // ブロックの最大サイズ（PCは大きく、スマホは小さく）
-const MAX_BLOCK_SIZE_PC = 100
+const MAX_BLOCK_SIZE_PC = 80
 const MAX_BLOCK_SIZE_MOBILE = 80
 // PC判定のしきい値（Tailwindの2xl=1536pxに合わせる）
 const PC_THRESHOLD = 1536
@@ -44,9 +44,9 @@ function useFrameSize(): { frameSize: number; maxBlockSize: number } {
       const maxBlock = isPC ? MAX_BLOCK_SIZE_PC : MAX_BLOCK_SIZE_MOBILE
 
       // 画面高さから他の要素の概算高さを引く
-      // PC: ヘッダー約60px + 問題文約50px + フィードバック80px + 入力エリア約300px + パディング約60px = 約550px
+      // PC: ヘッダー約60px + 問題文約50px + フィードバック80px + 入力エリア約280px + パディング約60px = 約530px
       // スマホ: ヘッダー約50px + 問題文約40px + フィードバック80px + 入力エリア約260px + パディング約50px = 約480px
-      const reservedHeight = isPC ? 550 : 480
+      const reservedHeight = isPC ? 530 : 480
       const availableHeight = windowHeight - reservedHeight
       // 幅の制限も考慮（画面幅の90%まで、ただし最大サイズ以内）
       const availableWidth = Math.min(windowWidth * 0.9, maxFrame)

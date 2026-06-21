@@ -76,13 +76,13 @@ export function NumberInput({
   const digits = ['7', '8', '9', '4', '5', '6', '1', '2', '3']
 
   return (
-    <div className="flex flex-col items-center gap-1.5 2xl:gap-3 w-full max-w-[240px] 2xl:max-w-[300px]">
+    <div className="flex flex-col items-center gap-1.5 2xl:gap-2 w-full max-w-[240px] 2xl:max-w-[280px]">
       {/* 入力表示エリア */}
       <div
         className={`
-          w-full h-10 2xl:h-14 rounded-xl border-2 shadow-inner
+          w-full h-10 2xl:h-12 rounded-xl border-2 shadow-inner
           flex items-center justify-center
-          text-xl 2xl:text-3xl font-bold
+          text-xl 2xl:text-2xl font-bold
           ${inputDisplayClass}
         `}
       >
@@ -105,7 +105,7 @@ export function NumberInput({
             className={`
               btn-base
               bg-white text-kazumon-dark border-2 border-kazumon-primary
-              h-9 2xl:h-14 text-lg 2xl:text-2xl shadow-md
+              h-9 2xl:h-12 text-lg 2xl:text-xl shadow-md
               ${!disabled ? 'hover:bg-kazumon-accent/30 hover:scale-105' : 'opacity-50'}
             `}
             aria-label={`数字 ${d}`}
@@ -122,7 +122,7 @@ export function NumberInput({
           className={`
             btn-base
             bg-kazumon-light text-kazumon-dark border-2 border-gray-400
-            h-9 2xl:h-14 text-base 2xl:text-xl shadow-md
+            h-9 2xl:h-12 text-base 2xl:text-lg shadow-md
             ${!disabled ? 'hover:scale-105' : 'opacity-50'}
           `}
           aria-label="クリア"
@@ -138,7 +138,7 @@ export function NumberInput({
           className={`
             btn-base
             bg-white text-kazumon-dark border-2 border-kazumon-primary
-            h-9 2xl:h-14 text-lg 2xl:text-2xl shadow-md
+            h-9 2xl:h-12 text-lg 2xl:text-xl shadow-md
             ${!disabled ? 'hover:bg-kazumon-accent/30 hover:scale-105' : 'opacity-50'}
           `}
           aria-label="数字 0"
@@ -154,7 +154,7 @@ export function NumberInput({
           className={`
             btn-base
             bg-kazumon-light text-kazumon-dark border-2 border-gray-400
-            h-9 2xl:h-14 text-base 2xl:text-xl shadow-md
+            h-9 2xl:h-12 text-base 2xl:text-lg shadow-md
             ${!disabled ? 'hover:scale-105' : 'opacity-50'}
           `}
           aria-label="1文字消す"
@@ -169,7 +169,7 @@ export function NumberInput({
         <button
           type="button"
           onClick={onNext}
-          className="btn-base w-full h-10 2xl:h-14 text-lg 2xl:text-2xl shadow-lg border-2 2xl:border-4 bg-kazumon-secondary text-white border-teal-600 hover:scale-105 animate-pop-in"
+          className="btn-base w-full h-10 2xl:h-12 text-lg 2xl:text-xl shadow-lg border-2 2xl:border-3 bg-kazumon-secondary text-white border-teal-600 hover:scale-105 animate-pop-in"
           aria-label={isLastQuestion ? '結果を見る' : '次の問題へ'}
         >
           {isLastQuestion ? 'けっかを見る →' : 'つぎのもんだいへ →'}
@@ -182,7 +182,7 @@ export function NumberInput({
           onClick={handleSubmit}
           className={`
             btn-base
-            w-full h-10 2xl:h-14 text-lg 2xl:text-2xl shadow-lg border-2 2xl:border-4
+            w-full h-10 2xl:h-12 text-lg 2xl:text-xl shadow-lg border-2 2xl:border-3
             ${input === ''
               ? 'bg-gray-200 text-gray-400 border-gray-300'
               : 'bg-kazumon-primary text-white border-red-600 hover:scale-105'}
