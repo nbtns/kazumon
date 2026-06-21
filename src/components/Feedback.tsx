@@ -1,5 +1,9 @@
+import { useMemo } from 'react'
 import type { AnswerResult, Problem } from '../types'
 import { primeFactorize } from '../gameLogic'
+
+// 正解時の褒め言葉リスト（ランダムで1つ選ばれる）
+const PRAISES = ['せいかい！🎉', 'すごい！✨', 'よくできた！👏', 'そのとおり！🌟', 'パーフェクト！💯']
 
 interface FeedbackProps {
   result: AnswerResult
@@ -15,9 +19,14 @@ export function Feedback({ result }: FeedbackProps) {
   const factors = primeFactorize(correctAnswer)
   const factorExpression = factors.length > 0 ? factors.join(' x ') : '1'
 
+  // 褒め言葉は回答結果が変わるたびに1回だけランダム選択する
+  // （タイマー更新による再レンダリングでメッセージが切り替わらないよう固定）
+  const praise = useMemo(
+    () => PRAISES[Math.floor(Math.random() * PRAISES.length)],
+    [result]
+  )
+
   if (isCorrect) {
-    const praises = ['せいかい！🎉', 'すごい！✨', 'よくできた！👏', 'そのとおり！🌟', 'パーフェクト！💯']
-    const praise = praises[Math.floor(Math.random() * praises.length)]
     return (
       <div className='animate-pop-in flex flex-col items-center gap-1'>
         <p className='text-2xl font-bold text-kazumon-success'>{praise}</p>
