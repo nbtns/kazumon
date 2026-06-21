@@ -51,15 +51,15 @@ export function ResultScreen({ stats, difficulty, onRetry, onTitle }: ResultScre
   else if (accuracy >= 50) message = 'もうすこしがんばろう！💪'
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 gap-4 overflow-y-auto">
-      <div className="animate-pop-in flex flex-col items-center gap-4 w-full max-w-md">
+    <div className="h-[100dvh] flex flex-col items-center justify-center p-2 sm:p-4 gap-2 sm:gap-4 overflow-hidden">
+      <div className="animate-pop-in flex flex-col items-center gap-2 sm:gap-4 w-full max-w-md">
         {/* 結果タイトル */}
-        <h2 className="text-4xl font-extrabold text-kazumon-primary">
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-kazumon-primary">
           けっかはっぴょう
         </h2>
 
         {/* スター評価 */}
-        <div className="flex gap-2 text-4xl">
+        <div className="flex gap-2 text-3xl sm:text-4xl">
           {[0, 1, 2].map((i) => (
             <span
               key={i}
@@ -72,52 +72,52 @@ export function ResultScreen({ stats, difficulty, onRetry, onTitle }: ResultScre
         </div>
 
         {/* メッセージ */}
-        <p className="text-2xl font-bold text-kazumon-dark text-center">
+        <p className="text-lg sm:text-2xl font-bold text-kazumon-dark text-center">
           {message}
         </p>
 
         {/* 新記録バッジ（新記録の時だけ表示） */}
         {isNewRecord && playCount > 1 && (
-          <div className="animate-pop-in bg-kazumon-secondary text-white px-4 py-2 rounded-full font-bold text-lg shadow-lg">
+          <div className="animate-pop-in bg-kazumon-secondary text-white px-3 py-1 rounded-full font-bold text-base shadow-lg">
             🎉 新記録！
           </div>
         )}
         {/* 初回プレイ時のメッセージ */}
         {playCount === 1 && (
-          <div className="animate-pop-in bg-kazumon-success text-white px-4 py-2 rounded-full font-bold text-lg shadow-lg">
+          <div className="animate-pop-in bg-kazumon-success text-white px-3 py-1 rounded-full font-bold text-base shadow-lg">
             🎊 初クリア記録！
           </div>
         )}
 
         {/* 統計情報カード */}
-        <div className="w-full bg-white rounded-2xl shadow-lg p-4 flex flex-col gap-2">
-          <div className="flex justify-between items-center text-lg">
+        <div className="w-full bg-white rounded-2xl shadow-lg p-2 sm:p-4 flex flex-col gap-1">
+          <div className="flex justify-between items-center text-sm sm:text-lg">
             <span className="text-kazumon-dark/70">レベル</span>
             <span className="font-bold text-kazumon-primary">
               {DIFFICULTY_CONFIGS[difficulty].label}
             </span>
           </div>
-          <div className="flex justify-between items-center text-lg">
+          <div className="flex justify-between items-center text-sm sm:text-lg">
             <span className="text-kazumon-dark/70">もんだいすう</span>
             <span className="font-bold">{stats.totalQuestions}</span>
           </div>
-          <div className="flex justify-between items-center text-lg">
+          <div className="flex justify-between items-center text-sm sm:text-lg">
             <span className="text-kazumon-dark/70">せいかい</span>
             <span className="font-bold text-kazumon-success">
               {stats.correctCount} / {stats.totalQuestions}
             </span>
           </div>
-          <div className="flex justify-between items-center text-lg">
+          <div className="flex justify-between items-center text-sm sm:text-lg">
             <span className="text-kazumon-dark/70">せいとうりつ</span>
             <span className="font-bold text-kazumon-primary">{accuracy}%</span>
           </div>
-          <div className="flex justify-between items-center text-lg">
+          <div className="flex justify-between items-center text-sm sm:text-lg">
             <span className="text-kazumon-dark/70">れんぞくせいかい</span>
             <span className="font-bold text-kazumon-secondary">
               {stats.maxStreak}れんぞく
             </span>
           </div>
-          <div className="flex justify-between items-center text-lg">
+          <div className="flex justify-between items-center text-sm sm:text-lg">
             <span className="text-kazumon-dark/70">じかん</span>
             <span className={`font-bold tabular-nums ${isNewRecord ? 'text-kazumon-secondary' : ''}`}>
               {minutes > 0 ? `${minutes}ふん ` : ''}{secondsDecimal}びょう
@@ -126,7 +126,7 @@ export function ResultScreen({ stats, difficulty, onRetry, onTitle }: ResultScre
           </div>
           {/* ベストタイム（2回目以降のプレイで表示） */}
           {playCount > 1 && (
-            <div className="flex justify-between items-center text-lg border-t-2 border-gray-100 pt-2 mt-1">
+            <div className="flex justify-between items-center text-sm sm:text-lg border-t-2 border-gray-100 pt-1 mt-0.5">
               <span className="text-kazumon-dark/70">ベストタイム</span>
               <span className="font-bold text-kazumon-secondary tabular-nums">
                 {best.minutes > 0 ? `${best.minutes}ふん ` : ''}{best.secondsDecimal}びょう
@@ -134,7 +134,7 @@ export function ResultScreen({ stats, difficulty, onRetry, onTitle }: ResultScre
             </div>
           )}
           {/* プレイ回数 */}
-          <div className="flex justify-between items-center text-sm">
+          <div className="flex justify-between items-center text-xs">
             <span className="text-kazumon-dark/60">プレイかいすう</span>
             <span className="font-bold text-kazumon-dark/60">{playCount}かい</span>
           </div>
@@ -145,14 +145,14 @@ export function ResultScreen({ stats, difficulty, onRetry, onTitle }: ResultScre
           <button
             type="button"
             onClick={onRetry}
-            className="btn-base bg-kazumon-primary text-white border-4 border-red-600 py-3 text-xl shadow-xl"
+            className="btn-base bg-kazumon-primary text-white border-4 border-red-600 py-2 sm:py-3 text-lg sm:text-xl shadow-xl"
           >
             もういちどあそぶ
           </button>
           <button
             type="button"
             onClick={onTitle}
-            className="btn-base bg-white text-kazumon-dark border-4 border-kazumon-secondary py-3 text-xl shadow-xl"
+            className="btn-base bg-white text-kazumon-dark border-4 border-kazumon-secondary py-2 sm:py-3 text-lg sm:text-xl shadow-xl"
           >
             タイトルにもどる
           </button>

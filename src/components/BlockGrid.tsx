@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import type { Problem, Tower } from '../types'
 import { generateTowers } from '../gameLogic'
 
@@ -7,14 +7,50 @@ interface BlockGridProps {
   animate?: boolean
 }
 
-// ブロック表示枠のサイズ（パディング込み）
-const FRAME_SIZE = 280
+// ブロック表示枠の最大サイズ（パディング込み）
+const MAX_FRAME_SIZE = 280
+// ブロック表示枠の最小サイズ（これ以下だと小さすぎて見えない）
+const MIN_FRAME_SIZE = 160
 // 枠のパディング（p-3 = 12px × 2）
 const PADDING = 24
 // ブロック間のギャップ
 const GAP = 8
 // ブロックの最大サイズ
 const MAX_BLOCK_SIZE = 80
+
+/**
+ * 画面高さに応じてブロック枠のサイズを計算する
+ * スマホでスクロールせずに全体が表示されるように調整
+ */
+function useFrameSize(): number {
+  const [frameSize, setFrameSize] = useState(MAX_FRAME_SIZE)
+
+  useEffect(() => {
+    const updateSize = () => {
+      const windowHeight = window.innerHeight
+      // 画面高さから他の要素（ヘッダー、問題文、フィードバック、入力エリア、パディング）の概算高さを引く
+      // ヘッダー約50px + 問題文約40px + フィードバック80px + 入力エリア約260px + パディング・ギャップ約50px = 約480px
+      const reservedHeight = 480
+      const availableHeight = windowHeight - reservedHeight
+      // 幅の制限も考慮（画面幅の90%まで、ただし最大280px）
+      const availableWidth = Math.min(window.innerWidth * 0.9, MAX_FRAME_SIZE)
+
+      // 高さと幅のうち小さい方を採用し、最小・最大の範囲内に収める
+      const calculated = Math.min(availableHeight, availableWidth, MAX_FRAME_SIZE)
+      setFrameSize(Math.max(calculated, MIN_FRAME_SIZE))
+    }
+
+    updateSize()
+    window.addEventListener('resize', updateSize)
+    window.addEventListener('orientationchange', updateSize)
+    return () => {
+      window.removeEventListener('resize', updateSize)
+      window.removeEventListener('orientationchange', updateSize)
+    }
+  }, [])
+
+  return frameSize
+}
 
 /**
  * カズモンブロックを描画するコンポーネント
@@ -29,12 +65,14 @@ const MAX_BLOCK_SIZE = 80
  *   → 赤ブロック縦2つ + 青ブロック1つ（横並び、上揃え）
  *
  * 【レイアウト】
- * - 固定サイズの枠の中にブロックを中央寄せで表示する
+ * - 画面サイズに応じた枠の中にブロックを中央寄せで表示する
  * - ブロックのサイズはタワー数と高さに応じて自動計算される
  * - これによりブロック数に関わらず入力エリアの位置が固定される
  */
 export function BlockGrid({ problem, animate = true }: BlockGridProps) {
   const towers = useMemo(() => generateTowers(problem), [problem])
+  // 画面サイズに応じた枠サイズを取得（スマホでスクロールせずに収まるように）
+  const frameSize = useFrameSize()
 
   // 最も高いタワーの高さ
   const maxTowerHeight = useMemo(
@@ -47,22 +85,22 @@ export function BlockGrid({ problem, animate = true }: BlockGridProps) {
 
   // ブロックサイズを自動計算（枠に収まるように）
   const blockSize = useMemo(() => {
-    const availableWidth = FRAME_SIZE - PADDING - (towerCount - 1) * GAP
-    const availableHeight = FRAME_SIZE - PADDING - (maxTowerHeight - 1) * GAP
+    const availableWidth = frameSize - PADDING - (towerCount - 1) * GAP
+    const availableHeight = frameSize - PADDING - (maxTowerHeight - 1) * GAP
 
     const sizeByWidth = Math.floor(availableWidth / towerCount)
     const sizeByHeight = Math.floor(availableHeight / maxTowerHeight)
 
     // 幅・高さ・最大サイズのうち最小のものを採用
     return Math.min(sizeByWidth, sizeByHeight, MAX_BLOCK_SIZE)
-  }, [maxTowerHeight, towerCount])
+  }, [maxTowerHeight, towerCount, frameSize])
 
   // 1の場合（素因数なし）は特別扱い
   if (towers.length === 0) {
     return (
       <div
         className="flex items-center justify-center rounded-2xl bg-white/50 shadow-inner"
-        style={{ width: `${FRAME_SIZE}px`, height: `${FRAME_SIZE}px` }}
+        style={{ width: `${frameSize}px`, height: `${frameSize}px` }}
         role="img"
         aria-label="1を表すブロック"
       >
@@ -83,7 +121,7 @@ export function BlockGrid({ problem, animate = true }: BlockGridProps) {
   return (
     <div
       className="flex items-center justify-center rounded-2xl bg-white/50 shadow-inner"
-      style={{ width: `${FRAME_SIZE}px`, height: `${FRAME_SIZE}px` }}
+      style={{ width: `${frameSize}px`, height: `${frameSize}px` }}
       role="img"
       aria-label={`${problem.answer}を素因数分解したブロック`}
     >

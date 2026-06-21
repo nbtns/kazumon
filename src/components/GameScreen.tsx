@@ -116,14 +116,14 @@ export function GameScreen({ difficulty, onGameEnd, onExit }: GameScreenProps) {
   const timeDisplay = formatTime(elapsedTime)
 
   return (
-    <div className="h-screen flex flex-col p-3 sm:p-4 gap-3 sm:gap-4 overflow-y-auto justify-start">
+    <div className="h-[100dvh] flex flex-col p-2 sm:p-4 gap-2 sm:gap-4 overflow-hidden justify-start">
       {/* ヘッダー：進捗・スコア・終了ボタン */}
-      <header className="flex items-center justify-between gap-3 flex-shrink-0">
+      <header className="flex items-center justify-between gap-2 sm:gap-3 flex-shrink-0">
         {/* 終了ボタン */}
         <button
           type="button"
           onClick={onExit}
-          className="btn-base bg-white text-kazumon-dark border-2 border-gray-300 px-3 py-1.5 text-sm shadow-md"
+          className="btn-base bg-white text-kazumon-dark border-2 border-gray-300 px-2 py-1 text-sm shadow-md"
           aria-label="タイトルに戻る"
         >
           ✕
@@ -144,7 +144,7 @@ export function GameScreen({ difficulty, onGameEnd, onExit }: GameScreenProps) {
               🔥 {stats.streak}れんぞく
             </span>
           </div>
-          <div className="h-3 bg-white rounded-full shadow-inner overflow-hidden">
+          <div className="h-2 sm:h-3 bg-white rounded-full shadow-inner overflow-hidden">
             <div
               className="h-full bg-kazumon-primary transition-all duration-300 rounded-full"
               style={{ width: `${progress}%` }}
@@ -155,24 +155,24 @@ export function GameScreen({ difficulty, onGameEnd, onExit }: GameScreenProps) {
         {/* 正解数 */}
         <div className="text-right flex-shrink-0">
           <span className="text-xs text-kazumon-dark/70">せいかい</span>
-          <span className="text-lg font-bold text-kazumon-success ml-1">
+          <span className="text-base sm:text-lg font-bold text-kazumon-success ml-1">
             {stats.correctCount}
           </span>
         </div>
       </header>
 
       {/* メインエリア：ブロック表示 */}
-      <main className="flex flex-col items-center gap-2 sm:gap-3">
+      <main className="flex flex-col items-center gap-1 sm:gap-3 flex-1 justify-center">
         {/* 問題文 */}
-        <p className="text-xl sm:text-2xl font-bold text-kazumon-dark text-center">
+        <p className="text-lg sm:text-2xl font-bold text-kazumon-dark text-center">
           このブロックはいくつ？
         </p>
 
-        {/* ブロックグリッド（固定サイズの枠付き） */}
+        {/* ブロックグリッド（画面サイズに応じた枠付き） */}
         <BlockGrid problem={currentProblem} animate={selectedAnswer === null} />
 
         {/* フィードバック（高さを固定してレイアウト崩れを防ぐ） */}
-        <div style={{ minHeight: '80px' }} className="flex items-center justify-center">
+        <div style={{ minHeight: '60px' }} className="flex items-center justify-center">
           {answerResult && (
             <Feedback result={answerResult} problem={currentProblem} />
           )}

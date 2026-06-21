@@ -18,6 +18,7 @@ interface NumberInputProps {
 /**
  * 数字入力コンポーネント
  * 子供が押しやすい大きなテンキー（0〜9）で答えを入力する
+ * スマホでも画面に収まるようコンパクトに設計
  */
 export function NumberInput({
   onSubmit,
@@ -75,18 +76,18 @@ export function NumberInput({
   const digits = ['7', '8', '9', '4', '5', '6', '1', '2', '3']
 
   return (
-    <div className="flex flex-col items-center gap-2 w-full max-w-[260px]">
+    <div className="flex flex-col items-center gap-1.5 w-full max-w-[240px]">
       {/* 入力表示エリア */}
       <div
         className={`
-          w-full h-12 rounded-xl border-2 shadow-inner
+          w-full h-10 rounded-xl border-2 shadow-inner
           flex items-center justify-center
-          text-2xl font-bold
+          text-xl font-bold
           ${inputDisplayClass}
         `}
       >
         {input === '' && !disabled ? (
-          <span className="text-kazumon-dark/30 text-sm">すうじをいれてね</span>
+          <span className="text-kazumon-dark/30 text-xs">すうじをいれてね</span>
         ) : (
           input || submittedAnswer
         )}
@@ -104,7 +105,7 @@ export function NumberInput({
             className={`
               btn-base
               bg-white text-kazumon-dark border-2 border-kazumon-primary
-              h-10 text-xl shadow-md
+              h-9 text-lg shadow-md
               ${!disabled ? 'hover:bg-kazumon-accent/30 hover:scale-105' : 'opacity-50'}
             `}
             aria-label={`数字 ${d}`}
@@ -121,7 +122,7 @@ export function NumberInput({
           className={`
             btn-base
             bg-kazumon-light text-kazumon-dark border-2 border-gray-400
-            h-10 text-base shadow-md
+            h-9 text-base shadow-md
             ${!disabled ? 'hover:scale-105' : 'opacity-50'}
           `}
           aria-label="クリア"
@@ -137,7 +138,7 @@ export function NumberInput({
           className={`
             btn-base
             bg-white text-kazumon-dark border-2 border-kazumon-primary
-            h-10 text-xl shadow-md
+            h-9 text-lg shadow-md
             ${!disabled ? 'hover:bg-kazumon-accent/30 hover:scale-105' : 'opacity-50'}
           `}
           aria-label="数字 0"
@@ -153,7 +154,7 @@ export function NumberInput({
           className={`
             btn-base
             bg-kazumon-light text-kazumon-dark border-2 border-gray-400
-            h-10 text-base shadow-md
+            h-9 text-base shadow-md
             ${!disabled ? 'hover:scale-105' : 'opacity-50'}
           `}
           aria-label="1文字消す"
@@ -168,7 +169,7 @@ export function NumberInput({
         <button
           type="button"
           onClick={onNext}
-          className="btn-base w-full h-12 text-xl shadow-lg border-2 bg-kazumon-secondary text-white border-teal-600 hover:scale-105 animate-pop-in"
+          className="btn-base w-full h-10 text-lg shadow-lg border-2 bg-kazumon-secondary text-white border-teal-600 hover:scale-105 animate-pop-in"
           aria-label={isLastQuestion ? '結果を見る' : '次の問題へ'}
         >
           {isLastQuestion ? 'けっかを見る →' : 'つぎのもんだいへ →'}
@@ -181,7 +182,7 @@ export function NumberInput({
           onClick={handleSubmit}
           className={`
             btn-base
-            w-full h-12 text-xl shadow-lg border-2
+            w-full h-10 text-lg shadow-lg border-2
             ${input === ''
               ? 'bg-gray-200 text-gray-400 border-gray-300'
               : 'bg-kazumon-primary text-white border-red-600 hover:scale-105'}

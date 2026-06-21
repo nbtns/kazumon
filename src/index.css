@@ -5,14 +5,25 @@
 @layer base {
   html {
     -webkit-tap-highlight-color: transparent;
+    /* 100dvh対応（モバイルブラウザのアドレスバー問題を解決） */
+    height: 100%;
   }
   body {
     @apply font-kid bg-kazumon-bg text-kazumon-dark;
     margin: 0;
+    /* 100dvhでアドレスバーの有無に関わらず画面全体を確実に表示 */
     min-height: 100vh;
+    min-height: 100dvh;
     /* 子供がタップしやすいようにタッチ操作を最適化 */
     touch-action: manipulation;
     overscroll-behavior: none;
+    /* スクロールを完全に禁止（画面外へのスクロールを防ぐ） */
+    overflow: hidden;
+    /* セーフエリア（ノッチ等）に対応 */
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+  #root {
+    height: 100%;
   }
 }
 
