@@ -1,29 +1,23 @@
-import { useState } from 'react'
 import type { AnswerResult, Problem } from '../types'
 import { primeFactorize } from '../gameLogic'
-
-// 正解時の褒め言葉リスト（ランダムで1つ選ばれる）
-const PRAISES = ['せいかい！🎉', 'すごい！✨', 'よくできた！👏', 'そのとおり！🌟', 'パーフェクト！💯']
 
 interface FeedbackProps {
   result: AnswerResult
   problem: Problem
+  // 正解時に表示する褒め言葉（親コンポーネントで選択済みのものを受け取る）
+  praise: string
 }
 
 /**
  * 回答後のフィードバックを表示するコンポーネント
  * 正解時は褒め言葉と素因数分解の解説、不正解時は正解を教える
+ * 褒め言葉は親（GameScreen）で回答時に1回だけ選択されるため、
+ * タイマー更新による再レンダリングでもチカチカしない
  */
-export function Feedback({ result }: FeedbackProps) {
+export function Feedback({ result, praise }: FeedbackProps) {
   const { isCorrect, correctAnswer } = result
   const factors = primeFactorize(correctAnswer)
   const factorExpression = factors.length > 0 ? factors.join(' x ') : '1'
-
-  // 褒め言葉はコンポーネントが表示された瞬間に1回だけランダム選択する
-  // useStateの初期化関数を使うことで、再レンダリング時には絶対に再計算されない
-  const [praise] = useState(() =>
-    PRAISES[Math.floor(Math.random() * PRAISES.length)]
-  )
 
   if (isCorrect) {
     return (

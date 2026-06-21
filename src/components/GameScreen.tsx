@@ -5,6 +5,9 @@ import { BlockGrid } from './BlockGrid'
 import { NumberInput } from './NumberInput'
 import { Feedback } from './Feedback'
 
+// 正解時の褒め言葉リスト（回答時に1回だけランダム選択される）
+const PRAISES = ['せいかい！🎉', 'すごい！✨', 'よくできた！👏', 'そのとおり！🌟', 'パーフェクト！💯']
+
 interface GameScreenProps {
   difficulty: Difficulty
   onGameEnd: (stats: GameStats) => void
@@ -30,6 +33,8 @@ export function GameScreen({ difficulty, onGameEnd, onExit }: GameScreenProps) {
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null)
   // 回答結果
   const [answerResult, setAnswerResult] = useState<AnswerResult | null>(null)
+  // 正解時に表示する褒め言葉（回答時に1回だけ選択して固定する）
+  const [praiseMessage, setPraiseMessage] = useState('')
   // ゲーム統計
   const [stats, setStats] = useState<GameStats>({
     totalQuestions: config.questionCount,
@@ -50,6 +55,7 @@ export function GameScreen({ difficulty, onGameEnd, onExit }: GameScreenProps) {
   useEffect(() => {
     setSelectedAnswer(null)
     setAnswerResult(null)
+    setPraiseMessage('')
   }, [currentIndex])
 
   // ゲーム中のリアルタイムタイマー（50ミリ秒ごとに経過時間を更新）
@@ -77,6 +83,10 @@ export function GameScreen({ difficulty, onGameEnd, onExit }: GameScreenProps) {
 
       setSelectedAnswer(value)
       setAnswerResult(result)
+      // 正解時に褒め言葉を1回だけランダム選択して固定する
+      if (isCorrect) {
+        setPraiseMessage(PRAISES[Math.floor(Math.random() * PRAISES.length)])
+      }
 
       // 統計を更新
       // 最後の問題なら、解答した瞬間の時刻をendTimeに記録する
@@ -174,7 +184,7 @@ export function GameScreen({ difficulty, onGameEnd, onExit }: GameScreenProps) {
         {/* フィードバック（高さを固定してレイアウト崩れを防ぐ） */}
         <div style={{ minHeight: '40px' }} className="flex items-center justify-center">
           {answerResult && (
-            <Feedback result={answerResult} problem={currentProblem} />
+            <Feedback result={answerResult} problem={currentProblem} praise={praiseMessage} />
           )}
         </div>
       </main>
