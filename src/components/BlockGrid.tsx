@@ -20,8 +20,8 @@ const GAP = 8
 // ブロックの最大サイズ（PCは大きく、スマホは小さく）
 const MAX_BLOCK_SIZE_PC = 100
 const MAX_BLOCK_SIZE_MOBILE = 80
-// PC判定のしきい値（Tailwindのmd=768pxに合わせる）
-const PC_THRESHOLD = 768
+// PC判定のしきい値（Tailwindの2xl=1536pxに合わせる）
+const PC_THRESHOLD = 1536
 
 /**
  * 画面サイズに応じてブロック枠のサイズを計算する

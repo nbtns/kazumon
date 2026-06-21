@@ -116,9 +116,9 @@ export function GameScreen({ difficulty, onGameEnd, onExit }: GameScreenProps) {
   const timeDisplay = formatTime(elapsedTime)
 
   return (
-    <div className="h-[100dvh] flex flex-col p-2 sm:p-4 gap-1 sm:gap-2 overflow-hidden justify-start">
+    <div className="h-[100dvh] flex flex-col p-2 2xl:p-4 gap-1 2xl:gap-2 overflow-hidden justify-start">
       {/* ヘッダー：進捗・スコア・終了ボタン */}
-      <header className="flex items-center justify-between gap-2 sm:gap-3 flex-shrink-0">
+      <header className="flex items-center justify-between gap-2 2xl:gap-3 flex-shrink-0">
         {/* 終了ボタン */}
         <button
           type="button"
@@ -144,7 +144,7 @@ export function GameScreen({ difficulty, onGameEnd, onExit }: GameScreenProps) {
               🔥 {stats.streak}れんぞく
             </span>
           </div>
-          <div className="h-2 sm:h-3 bg-white rounded-full shadow-inner overflow-hidden">
+          <div className="h-2 2xl:h-3 bg-white rounded-full shadow-inner overflow-hidden">
             <div
               className="h-full bg-kazumon-primary transition-all duration-300 rounded-full"
               style={{ width: `${progress}%` }}
@@ -155,16 +155,16 @@ export function GameScreen({ difficulty, onGameEnd, onExit }: GameScreenProps) {
         {/* 正解数 */}
         <div className="text-right flex-shrink-0">
           <span className="text-xs text-kazumon-dark/70">せいかい</span>
-          <span className="text-base sm:text-lg font-bold text-kazumon-success ml-1">
+          <span className="text-base 2xl:text-lg font-bold text-kazumon-success ml-1">
             {stats.correctCount}
           </span>
         </div>
       </header>
 
       {/* メインエリア：ブロック表示 */}
-      <main className="flex flex-col items-center gap-0.5 sm:gap-1 flex-1 justify-start">
+      <main className="flex flex-col items-center gap-0.5 2xl:gap-1 flex-1 justify-start">
         {/* 問題文 */}
-        <p className="text-lg sm:text-2xl font-bold text-kazumon-dark text-center">
+        <p className="text-lg 2xl:text-2xl font-bold text-kazumon-dark text-center">
           このブロックはいくつ？
         </p>
 
