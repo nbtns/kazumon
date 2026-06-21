@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useState } from 'react'
 import type { AnswerResult, Problem } from '../types'
 import { primeFactorize } from '../gameLogic'
 
@@ -19,11 +19,10 @@ export function Feedback({ result }: FeedbackProps) {
   const factors = primeFactorize(correctAnswer)
   const factorExpression = factors.length > 0 ? factors.join(' x ') : '1'
 
-  // 褒め言葉は回答結果が変わるたびに1回だけランダム選択する
-  // （タイマー更新による再レンダリングでメッセージが切り替わらないよう固定）
-  const praise = useMemo(
-    () => PRAISES[Math.floor(Math.random() * PRAISES.length)],
-    [result]
+  // 褒め言葉はコンポーネントが表示された瞬間に1回だけランダム選択する
+  // useStateの初期化関数を使うことで、再レンダリング時には絶対に再計算されない
+  const [praise] = useState(() =>
+    PRAISES[Math.floor(Math.random() * PRAISES.length)]
   )
 
   if (isCorrect) {
