@@ -30,10 +30,10 @@ export function TitleScreen({ onStart }: TitleScreenProps) {
 
   // カラーガイドのデータ（素数・色名・説明）
   const colorGuide: { prime: PrimeFactor; colorName: string; description: string }[] = [
-    { prime: 2, colorName: 'ピンク', description: '2の累乗を表す' },
-    { prime: 3, colorName: 'ブルー', description: '3の累乗を表す' },
-    { prime: 5, colorName: 'イエロー', description: '5の累乗を表す' },
-    { prime: 7, colorName: 'グリーン', description: '7の累乗を表す' },
+    { prime: 2, colorName: 'ピンク', description: '2を表す' },
+    { prime: 3, colorName: 'ブルー', description: '3を表す' },
+    { prime: 5, colorName: 'イエロー', description: '5を表す' },
+    { prime: 7, colorName: 'グリーン', description: '7を表す' },
   ]
 
   // デモブロックに使う素数（タイトル画面の飾り）
@@ -44,7 +44,7 @@ export function TitleScreen({ onStart }: TitleScreenProps) {
       {/* タイトルロゴ */}
       <div className="text-center animate-pop-in">
         <h1 className="text-4xl 2xl:text-6xl font-extrabold text-kazumon-primary drop-shadow-lg">
-          かずモン
+          カズモン
         </h1>
         <p className="text-sm 2xl:text-xl mt-1 text-kazumon-dark">
           ブロックをかぞえて、九九の答えをあてよう！

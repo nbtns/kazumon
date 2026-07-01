@@ -5,7 +5,7 @@ import { GameScreen } from './components/GameScreen'
 import { ResultScreen } from './components/ResultScreen'
 
 /**
- * かずモン - 九九ブロックゲーム
+ * カズモン - 九九ブロックゲーム
  *
  * ゲームの流れ:
  * 1. タイトル画面で難易度を選ぶ
